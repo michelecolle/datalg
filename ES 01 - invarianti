@@ -1,0 +1,13 @@
+CORRETTEZZA TRAMITE INVARIANTE:
+esercizio lunghezza massimo segmento di 1
+L: max é la llunghezza del massimo segmento di 1
+invariante: siano L_k le lunghezze dei segmenti di 1 presenti (posso prendere tutti i segmenti di 1 anche piu volte)
+in S_j = S[1 to j] con j<i allora max = max{L_k}
+1. per i=1 j=0 max=0 vero
+2. supponendo l'invariante vero per la generica interazione i all'interazione i+1 ho:
+  caso S[i+1] = 1 e curr > max assegno max <- curr quindi l'invariante é vero, altrimenti ricado nel caso precedente vero per ipotesi
+  caso S[i+1] = 0 il massimo segmento non puo essere piu lungo di quello del caso i-esimo quindi l'invariante vale
+3. fine del ciclo, il ciclo for ha una fine fissata ed L e l'invarianate sono veri per le motivazioni precedenti.
+
+
+    
