@@ -14,6 +14,7 @@ fare gli atri due esercizi..
 
 domande:
 capire come stimare la complessitá soprattutto per O(log n)
+NB: log_a B := n approssimabile a B/(a^n) <= 1 ovvero al numero di volte che devo dividere B per a per ottenere 1 come risultato
 
 ESERCIZIO Pag 103
 Sia A un array di n interi arbitrari. Progettare e analizzare un
