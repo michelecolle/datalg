@@ -1,1 +1,78 @@
-$\sqrt{5}$
+SLIDES NOZIONI DI BASE PAG 78
+CORRETTEZZA TRAMITE INVARIANTE:
+esercizio lunghezza massimo segmento di 1
+L: max é la llunghezza del massimo segmento di 1
+invariante: siano L_k le lunghezze dei segmenti di 1 presenti (posso prendere tutti i segmenti di 1 anche piu volte)
+in S_j = S[1 to j] con j<i allora max = max{L_k}
+1. per i=1 j=0 max=0 vero
+2. supponendo l'invariante vero per la generica interazione i all'interazione i+1 ho:
+  caso S[i+1] = 1 e curr > max assegno max <- curr quindi l'invariante é vero, altrimenti ricado nel caso precedente vero per ipotesi
+  caso S[i+1] = 0 il massimo segmento non puo essere piu lungo di quello del caso i-esimo quindi l'invariante vale
+3. fine del ciclo, il ciclo for ha una fine fissata ed L e l'invarianate sono veri per le motivazioni precedenti.
+
+fare gli atri due esercizi..
+
+domande:
+capire come stimare la complessitá soprattutto per O(log n)
+NB: log_a B := n approssimabile a B/(a^n) <= 1 ovvero al numero di volte che devo dividere B per a per ottenere 1 come risultato
+
+**recap ordini di grandezza**
+
+$f(n) \in O(g(n)) se \exists n_0 | f(n)\leq g(n) \forall n>n_0$ 
+
+$f(n) \in \Omega(g(n)) se \exists n_0 | f(n)\geq g(n) \forall n>n_0$ 
+
+$f(n) \in \ominus(g(n)) se f(n) \in \Omega(g(n)) \ e \ f(n) \in O(g(n))$ quindi se $f(n)$ é proporzionale a $g(n)$  
+
+
+
+
+ESERCIZIO Pag 103
+Sia A un array di n interi arbitrari. Progettare e analizzare un
+algoritmo che trova, se esiste, l’intero che occorre in A almeno
+floor(n/2) + 1 volte (maggioranza assoluta). L’algoritmo deve avere
+complessit`a O (n).
+• Versione 1: assumere A ordinato (facile)
+• Versione 2: nessuna assunzione su A (difficile)
+
+input A: array di interi ordinati
+output intero di maggioranza assoluta se esiste o -1
+n <- len(A)
+lmin = floor(n/2)
+cnt,v <- 0
+for i in n do:
+  if(v==A[i])
+    cnt++
+  else
+    cnt <- 1
+    v <- A[i]
+  if(cnt > lmin)
+    return v
+return -1
+
+invariante: cnt é <= alla lunghezza del segmento piu lungo di interi uguali e cnt <= lmin
+
+caso nullo (array vuoto) non entro nel loop e ritorna -1
+caso base array con un solo numero dentro ritorna il numero
+caso i : se A[i] == v incremento cnt e poi controllo l'invariante
+         se A[i] != v metto a 1 cnt (il nuovo segmento parte da lunghezza 1) e controllo l'invariante
+fine del ciclo: l'algoritmo finisce per forza alla fine dell'array restituendo -1 oppure il valore cercato
+ complessitá O(n)
+
+input A: array di interi arbitrari
+output intero di maggioranza assoluta se esiste o -1
+n <- len(A)
+lmin <- floor(n/2)
+intList, lenList <- liste vuote
+for i in n do:
+  int idx = intLst.indexOf(A[i]) //assumo che se l'indice é -1 l'elemento non é nella lista
+  if(idx != -1)
+    lenList[idx]++;
+      if(lenList[idx] > lmin)
+          return intLst[idx]
+  else
+    intLst.Add(A[i])
+    lenList.Add(1)
+return -1
+
+non sono sicuro che la complessitá sia O(n) per la chiamata ad indexOf
