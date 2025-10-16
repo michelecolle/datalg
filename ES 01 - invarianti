@@ -11,4 +11,57 @@ in S_j = S[1 to j] con j<i allora max = max{L_k}
 3. fine del ciclo, il ciclo for ha una fine fissata ed L e l'invarianate sono veri per le motivazioni precedenti.
 
 fare gli atri due esercizi..
-    
+
+domande:
+capire come stimare la complessitá soprattutto per O(log n)
+
+ESERCIZIO Pag 103
+Sia A un array di n interi arbitrari. Progettare e analizzare un
+algoritmo che trova, se esiste, l’intero che occorre in A almeno
+floor(n/2) + 1 volte (maggioranza assoluta). L’algoritmo deve avere
+complessit`a O (n).
+• Versione 1: assumere A ordinato (facile)
+• Versione 2: nessuna assunzione su A (difficile)
+
+input A: array di interi ordinati
+output intero di maggioranza assoluta se esiste o -1
+n <- len(A)
+lmin = floor(n/2)
+cnt,v <- 0
+for i in n do:
+  if(v==A[i])
+    cnt++
+  else
+    cnt <- 1
+    v <- A[i]
+  if(cnt > lmin)
+    return v
+return -1
+
+invariante: cnt é <= alla lunghezza del segmento piu lungo di interi uguali e cnt <= lmin
+
+caso nullo (array vuoto) non entro nel loop e ritorna -1
+caso base array con un solo numero dentro ritorna il numero
+caso i : se A[i] == v incremento cnt e poi controllo l'invariante
+         se A[i] != v metto a 1 cnt (il nuovo segmento parte da lunghezza 1) e controllo l'invariante
+fine del ciclo: l'algoritmo finisce per forza alla fine dell'array restituendo -1 oppure il valore cercato
+ complessitá O(n)
+
+input A: array di interi arbitrari
+output intero di maggioranza assoluta se esiste o -1
+n <- len(A)
+lmin <- floor(n/2)
+intList, lenList <- liste vuote
+for i in n do:
+  int idx = intLst.indexOf(A[i]) //assumo che se l'indice é -1 l'elemento non é nella lista
+  if(idx != -1)
+    lenList[idx]++;
+      if(lenList[idx] > lmin)
+          return intLst[idx]
+  else
+    intLst.Add(A[i])
+    lenList.Add(1)
+return -1
+
+non sono sicuro che la complessitá sia O(n) per la chiamata ad indexOf
+
