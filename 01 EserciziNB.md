@@ -89,9 +89,9 @@ return max
 Soluzioni: piu o meno ci siamo...
 ---
 
-# Algoritmo: Ricerca di una Colonna di Zeri in una Matrice n × n
+## Esercizio 3: Ricerca di una Colonna di Zeri in una Matrice n × n
 
-## 🔹 Descrizione del Problema
+Descrizione del Problema
 
 Sia `A` una matrice `n × n` di interi, con `n ≥ 2`,  
 dove righe e colonne sono numerate a partire da `0`.
@@ -104,3 +104,70 @@ dove righe e colonne sono numerate a partire da `0`.
 3. **Dimostrare la correttezza** dell’algoritmo tramite un opportuno **invariante di ciclo**.
 
 ---
+**algoritmo** ZeroColumnFinder
+
+**input** Matrice `M` con `dim(M) = n x n`   $n\geq2$
+
+**output** Indice di una colonna di zeri se esiste, altrimenti -1. (gli indici partono da 0)
+
+```algorithm
+len <- 0
+k <- 0
+while k < n x n do
+  //indice riga
+  i <- k%n
+  //indice colonna
+  j <- k/n
+  
+  if M(i,j) = 0
+    len++
+    k++
+  else
+    len <- 0
+    k <- (j+1)*n
+  if len = n
+    return j;
+
+return -1;
+
+```
+
+**upper bound** al massimo il ciclo esterno scorre tutta la matrice una volta dunque $O(n^2)$ mentre il 
+
+**lowerbound** avviene quando la prima colonna e' composta di soli zeri quindi $\Omega(n)$.
+
+**correttezza** Proprietà L: l'indice restituito é -1 oppure quello della prima colonna di zeri
+Invariante: len <= massima lunghezza di una colonna di zeri dall'alto della matrice
+
+### Soluzione:
+```algorithm
+i <- 0
+j <- 0
+while j < n do
+  if i = n then return j
+  if M(i,j) != 0 then 
+    j++
+    i <- 0
+  else i++
+
+return -1;
+
+```
+
+**upper bound** come sopra, $O(n^2)$
+
+**lower bound** ATTENZIONE!! per il lower bound si cerca un minorante per l'istanza peggiore!! in questo caso è la matrice con tutti zeri tranne la riga più in basso, quindi sempre $\Omega (n^2)$ dounque ho la condizione di proporzionalità $\Theta (n^2)$.
+
+**correttezza** Invariante: dnetro al ciclo alla cella (i,j)
+ - nessuna delle colonne [0 to j-1] è composta di soli zeri
+ - M[0 to i-1, j] = 0
+
+casi: 
+
+matrice vuota, non puó avere colonne di zeri, vera per vacuità
+
+primo if:true - il ciclo si ferma a j che è una colonna di zeri, invariante verificato 
+
+secondo if true - verifico la prima parte dell'invariante per la colonna j ed incremento j, sono alla posizione i = 0 percui la seconda parte dell'invariante è banalmente vera.
+
+secondo if false - la prima parte dell'invariante è vera per le precedenti condizioni, verifico la seconda parte dell'invariante per la riga i e la incremento.
