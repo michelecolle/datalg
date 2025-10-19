@@ -11,6 +11,9 @@
 - **Theta:**  
   $f(n) \in \Theta(g(n))$ se $f(n) \in \Omega(g(n))$ e $f(n) \in O(g(n))$, quindi se $f(n)$ è proporzionale a $g(n)$.
 
+- **Small o:**  
+  $f(n) \in o(g(n))$ se $\lim_{n \to \infty}\frac{f(n)}{g(n)} =0$, quindi $f(n)$ é asintoticamente più piccolo di $g(n)$ 
+
 ### Approssimazione logaritmo
 - NB: $\log_a B := n$ approssimabile a $B/(a^n) \leq 1$, ovvero al numero di volte che devo dividere $B$ per $a$ per ottenere 1 come risultato.
 
