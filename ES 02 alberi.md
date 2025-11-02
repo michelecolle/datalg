@@ -93,17 +93,70 @@ ricordando che la profonditá per un albero generale ha complessitá $\Theta(n)$
 
 ### Soluzione: 
 Si arriva a complessitá $O(n)$ passando all'algoritmo un valore $m$ ovvero il valore del massimante del ramo.
+``` py
+#visita in preorder
+if T.IsRoot(v) than 
+    v.maximal = 1
+else
+    if v.val >= m
+        v.maximal = 1
+        m <- v.val
+    else
+        v.maximal = 0
+for w in T.childern(v)
+    MaximalSet(w,m)
+```
+**NB:** l'algoritmo del professore é leggermente diverso ma la sostanze é quella.  
 
 ---
 
 ## 4. Esercizio (relazione tra foglie e nodi interni)  
 Dimostrare che in un albero non vuoto T con n nodi di cui m foglie, dove ogni nodo interno ha almeno 2 figli, si ha che m ≥ n − m + 1.
 
+### Risposta:
+Dimostrazione per induzione: 
+- Passo 0: $n = m = 1 \Rightarrow m \geq1$
+- Passo induttivo:  
+caso 1: aggiungo una foglia ad un nodo interno:   
+ $m'=m+1 \ \ \ \ n'=n +1$  
+ $m'\geq n' - m' +1 \Rightarrow m+1\geq n-m +1 \Rightarrow m\geq n-m$ vera per ipotesi induttiva.  
+ caso 2: voglio incrementare un nodo interno, quindi attacco due foglie a una foglia (che diventa nodo interno):  
+  $m'=m+1 \ \ \ \ n'=n +2$  
+  $m'\geq n' - m' +1 \Rightarrow m\geq n-m+1$  
+
+### Soluzione:
+Nota: credo che anche la mia versione funzioni.
+Si hanno le seguenti proprietá per gli alberi binari propri:
+$$n=n-m+1$$
+caso base: $h=0$ vero  
+passo induttivo: si suppone la proprietá vera per alberi di altezza $h$ dato che vale per gli alberi binari e nel nostro caso aumenta solo il numero di foglie che conferma la disuguaglianza.  
+per $h'=h+1$ siano $T_i$ con $i\leq k$ e $k\geq 2$ i sottoalberi di altezza massima $h$ di $T$ figli di root (NB: aggiungendo root ottengo un albero alto $h'$ mentre per tutti i $T_i$ vale l'ipotesi induttiva). $$n = \# T\ \ \ n_i=\#T_i$$ 
+$$ m=\# \{w\in T|w \ is \ leaf \} \ \ \ m_i=\# \{w\in T_i|w \ is \ leaf \} $$
+$$ m=\Sigma_k m_i\ \ \ n = 1+\Sigma_k n_i $$ $$ m=\Sigma_k m_i\leq\Sigma_k(n_i-m_i+1) = m - n + k\leq m-n+1$$ 
+perché $m\geq 2$
+
 ---
 
 ## 5. Esercizio (preorderNext / inorderNext / postorderNext — C-8.41 [GTG14])  
 Progettare tre algoritmi iterativi `preorderNext(v)`, `inorderNext(v)` e `postorderNext(v)` che, dato un nodo v di un albero binario proprio T, restituiscano il nodo visitato dopo v nella visita di T rispettivamente in preorder, inorder e postorder, o `null` se v è l’ultimo nodo visitato. Analizzarne la complessità.
 
+**preorderNext**
+``` py
+if T.HasChildren(v) return T.childern(v)
+else return null
+```
+
+**postorderNext**
+``` py
+if not T.IsRoot(v) return T.parent(v)
+else return null
+```
+
+**erNext**
+``` py
+if not T.IsRoot(v) return T.parent(v)
+else return null
+```
 ---
 
 ## 6. Esercizio (allLiveAncestors)  
