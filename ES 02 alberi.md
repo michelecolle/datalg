@@ -35,7 +35,7 @@ Progettare un algoritmo efficiente per trovare LCA(v,w) e analizzarne la comples
 **Algoritmo:** LCA1(T,v,w)
 **Input:** Nodi v e w
 **Output:** nodo LCA
-``` alg
+``` python
 
 def CheckBranch(k, w):
     contains <- false
@@ -46,12 +46,12 @@ def CheckBranch(k, w):
     else
         foreach j in v.children() do
             contains <- contains or CheckBranch(j,w)
-    return contains;
+    return contains
 
 found = false
 t <- v
 CheckBranch(t,w)
-while !found do
+while not found do
     t <- v.parent
     found = CheckBranch(t,w)
 
@@ -64,6 +64,35 @@ Insomma, molto meglio la soluzione del prof
 Si consideri un albero binario proprio T dove ciascun nodo v contiene un intero v.val ≥ 0. Un nodo v ∈ T si dice massimale se v.val ≥ u.val per ogni u antenato di v (la radice è sempre massimale).  
 1. Progettare in pseudocodice un algoritmo ricorsivo `MaximalSet` che, per ogni nodo v, imposta un flag binario `v.maximal` a 1 se v è massimale, a 0 altrimenti. Alla fine dell’algoritmo il campo `maximal` di tutti i nodi deve risultare impostato.  
 2. Analizzare la complessità dell’algoritmo progettato.
+
+### Risposta:
+nota: la radice é sempre massimale perché non ha antenati, quindi indipendentemente da root.val non viene confrontato con nessun altro valore.  
+**Algoritmo:** MaximalSet(T,v)  
+**Input:** Albero T e nodo v, v ha un flag intero $v.val\geq 0$   preassegnato  
+**Output:** Albero T con flag v.maximal a 1 se il nodo é massimale, 0 altrimenti  
+``` py
+#visita in preorder
+if T.IsRoot(v) than 
+    v.maximal = 1
+else
+    #assegno a k il primo antenato massimale
+    k <- T.parent(v)
+    while not k.maximal
+        k <- T.parent(k)
+    v.maximal = v.val >= k.val ? 1 : 0
+
+for w in T.childern(v)
+    MaximalSet(w)
+```
+**Chiamata iniziale:** MaximalSet(T, T.root())  
+**Complessitá:**   
+ricordando che la profonditá per un albero generale ha complessitá $\Theta(n)$
+ - maggiorante: $f(n)\leq\Sigma_{v\in T}T.depth(v)\leq\Sigma_n n=n^2\in O(n^2)$
+ - minorante: $g(n)\geq\Sigma_{v\in T}T.depth(v)\geq\Sigma_{i=0}^n i\in \Omega(n^2)$  
+ dunque la complessitá é proporzionale a $\Theta(n^2)$
+
+### Soluzione: 
+Si arriva a complessitá $O(n)$ passando all'algoritmo un valore $m$ ovvero il valore del massimante del ramo.
 
 ---
 
@@ -80,6 +109,21 @@ Progettare tre algoritmi iterativi `preorderNext(v)`, `inorderNext(v)` e `postor
 ## 6. Esercizio (allLiveAncestors)  
 Si consideri un albero T in cui ogni nodo `v` contiene un valore binario restituito da `v.getElement()`; si dice `alive` se tale valore è `1`, e `dead` se esso è `0`.  
 Progettare un algoritmo ricorsivo `allLiveAncestors` che per ogni nodo `v ∈ T` memorizzi in un campo `v.liveAncestors` il numero di antenati `alive` di `v`. Analizzare la complessità dell’algoritmo.
+
+### Risposta:
+**Algoritmo:** allLiveAncestors(T, v)  
+**Input:** albero T e nodo v  
+**Ouput:** al nodo v e a tutti i suoi discendenti viene settata la proprietá liveAncestor al numero di antenati vivi di v  
+``` c#
+//visita in preorder
+v.liveAncestors <- v.alive
+if not T.IsRoot(v) than
+    v.liveAncestors += T.GetParent(v).liveAncestors
+foreach w in T.childern(v) do
+    allLiveAncestors(t, w)
+```
+**prima chiamata:** allLiveAncestor(T,T.GetRoot())  
+**complessitá:** é una visita in preorder quindi eredita la complessitá di quest'ultima: $O(n)$
 
 ---
 
@@ -123,6 +167,7 @@ while q.HasNext() do:
 **proprietá L:** il valore ritornato é la massima altezza di un sensore attivo
 **invariante:** Gli elementi della coda q sono tutti alla stessa altezza, per ogni passo del ciclo tutti i sensori estratti da q sono spenti tranne al piu il sensore iesimo
 **complessitá:** $\Theta(n)$ al caso pessimo
+
 ---
 
 ## 10. Esercizio (valutare un Parse Tree)  
