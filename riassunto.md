@@ -259,55 +259,23 @@ dove $r$ è la radice con figli $u_1, \dots, u_k$, e ogni $T_i$ è un albero non
 $$\text{height}(T) = \max_{v \in T: v \text{ foglia}} (\text{depth}_T(v))$$
 
 ```mermaid
+```mermaid
 graph TD
-    subgraph Misure
-        A[Altezza: max(Profondità delle foglie) = 3]
-        P[Profondità: distanza dal nodo alla radice (A) = 0, 1, 2, 3]
-    end
+    %% Profondità (depth) = Distanza dalla Radice
+    %% Altezza (height) = Max(Profondità delle foglie)
 
     A((Radice))
-    subgraph Livello 0
-        A
-    end
-
-    subgraph Livello 1
-        B(Nodo)
-        C(Nodo)
-    end
-    A --> B
-    A --> C
     
-    subgraph Livello 2
-        D(Nodo)
-        E(Foglia)
-        F(Foglia)
-    end
-    B --> D
-    B --> E
-    C --> F
-
-    subgraph Livello 3
-        G(Foglia)
-    end
-    D --> G
-
-    %% Definizioni Visive
-    style A fill:#D0F0C0,stroke:#3C8000,stroke-width:2px,font-weight:bold
-    style G fill:#FFD700,stroke:#B8860B,font-weight:bold
+    A --> B(Nodo depth=1)
+    A --> C(Nodo depth=1)
     
-    linkStyle 0 stroke-width:3px,stroke:blue,stroke-dasharray: 5 5;
-    linkStyle 1 stroke-width:3px,stroke:blue,stroke-dasharray: 5 5;
+    B --> D(Nodo depth=2)
+    B --> E(Foglia depth=2)
+    C --> F(Foglia depth=2)
     
-    linkStyle 3 stroke-width:3px,stroke:red,stroke-dasharray: 5 5;
-    linkStyle 4 stroke-width:3px,stroke:red,stroke-dasharray: 5 5;
-    linkStyle 5 stroke-width:3px,stroke:red,stroke-dasharray: 5 5;
+    D --> G(Foglia Max Depth=3)
 
-    %% Annotazioni (non visibili direttamente sul diagramma ma utili per la spiegazione)
-    P1[Profondità(G) = 3]
-    A -->|depth=1| B
-    B -->|depth=2| D
-    D -->|depth=3| G
-    
-    classDef depth color:blue
-    classDef height color:red
+    %% Stili minimi per enfasi
+    style A fill:#D0F0C0,stroke:#3C8000
+    style G fill:#FFD700,stroke:#B8860B
 ```
