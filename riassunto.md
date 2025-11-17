@@ -258,6 +258,7 @@ dove $r$ è la radice con figli $u_1, \dots, u_k$, e ogni $T_i$ è un albero non
 **Proposizione:** L'altezza di un albero $T$ è uguale alla massima profondità tra tutte le foglie:
 $$\text{height}(T) = \max_{v \in T: v \text{ foglia}} (\text{depth}_T(v))$$
 
+```mermaid
 graph TD
     subgraph Misure
         A[Altezza: max(Profondità delle foglie) = 3]
@@ -309,3 +310,4 @@ graph TD
     
     classDef depth color:blue
     classDef height color:red
+```
