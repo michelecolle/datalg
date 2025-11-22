@@ -437,7 +437,7 @@ Input: v ∈ T (Posizione/Nodo)
 ## notazione infissa e postfissa
 vedi slide.
 
-## 3.Priority queue
+# 3.Priority queue
 
 Una Entry `e una coppia (chiave, valore), dove la chiave proviene
 da un dominio K e il valore da un dominio V.
@@ -629,3 +629,34 @@ La complessità totale $\Theta()$ è data dalla somma dei tempi di esecuzione de
 * **Heap Sort:** La complessità $\Theta(n \log n)$ deriva dalla gestione dell'heap. Anche se la Fase A può essere ottimizzata a $\Theta(n)$ usando la costruzione *bottom-up* (invece di $n$ inserimenti sequenziali), la Fase B (le $n$ estrazioni del minimo) mantiene il costo a $\Theta(n \log n)$, determinando la complessità totale.
 
 Vedi le ultime pagine delle slide sulle prority queue per l'implementazione inplace di pqsort.
+
+# 4.Mappe
+
+```java
+public interface Map<K,V>{
+int size();
+boolean isEmpty();
+V get (K key);
+V put (K key, V value);
+V remove (K key);
+Iterable<K> keySet();
+Iterable<V> values();
+Iterable<Entry<K,V>> entrySet();
+}
+```
+
+- get(K key): se ∃ (key,x) restituisce x altrimenti restituisce null
+- put(K key, V value): se ∃ (key,x) mette value al posto di x e
+restituisce x, altrimenti inserisce l’entry (key, value) e restituisce
+null
+- remove(K key): se ∃ (key,x) rimuove la entry e restituisce x,
+altrimenti restituisce null
+- keySet(), values(), entrySet(): restituiscono strutture
+(Iterable) contenenti, rispettivamente, le chiavi, i valori e le entry
+della mappa che possono essere enumerate da iteratori (iterator).
+
+N.B.: la mappa è vista come associative array nel senso che la chiave
+della entry è usata come un “indice” di accesso alla mappa.
+
+## Rapresentazioni di mappe
+### Tabelle hash
